@@ -1,0 +1,51 @@
+This is a MIPS assembly code implementing a simple Tic-Tac-Toe game for two players. Here's a breakdown of the code:
+
+### Data Segment:
+- **board**: This is the game board initialized with the numbers "1-9", representing the empty spaces where players can make moves.
+- **prompt**: The prompt message asking for a move.
+- **player1 & player2**: Strings that identify each player (Player 1 is 'X', Player 2 is 'O').
+- **win_msg, win_msg2**: Messages for displaying the winner.
+- **draw_msg**: A message displayed when the game ends in a draw.
+- **invalid_move_msg**: Message displayed if a player makes an invalid move.
+- **newline, space**: Used for formatting the board and messages.
+
+### Text Segment:
+- **main**: The main game loop. It alternates between players, printing the board, prompting for moves, validating input, and updating the board.
+    - The game alternates between two players (Player 1 and Player 2).
+    - Each player is prompted to enter a number (1-9) corresponding to the empty spaces on the board.
+    - After each move, the board is checked for a win, draw, or invalid input.
+
+- **game_loop**: The core of the game. This loop handles printing the board, prompting players for input, validating the move, updating the board, and checking for a win or draw.
+    - If the input is invalid, the game prints an error message and prompts the player again.
+    - The board is updated with 'X' or 'O' based on the current player.
+    - After each move, the game checks if there is a winner or a draw.
+    - If the board is full and there's no winner, the game ends in a draw.
+
+- **print_board**: This function prints the game board. It prints each character on the board and places a space between cells. Every third cell results in a newline for proper formatting.
+    - The function uses syscall to print the characters.
+
+- **check_win**: This function checks if there is a winner. It checks for winning combinations in rows, columns, and diagonals:
+    - **Rows**: Each set of three consecutive cells (0,1,2), (3,4,5), (6,7,8) are checked for matching values ('X' or 'O').
+    - **Columns**: Each set of three consecutive cells in a column (0,3,6), (1,4,7), (2,5,8) are checked.
+    - **Diagonals**: The two diagonals (0,4,8) and (2,4,6) are checked.
+    - If any winning combination is found, the function returns 1 (indicating a win).
+
+- **invalid_input**: If the player inputs a value that's either out of range (not 1-9) or an already occupied space, the program prints an error message and asks for another input.
+
+- **win**: If a player wins, this section prints the winning message, showing the final board state and the winner.
+
+- **draw**: If the board is full and no one wins, this section prints the draw message and the final board state.
+
+- **exit**: Ends the program.
+
+### Key Features:
+1. **Input Validation**: The game checks if the player's input is within the valid range (1-9) and ensures the chosen space is not already occupied.
+2. **Turn Alternation**: The variable `$t2` keeps track of the current player (0 for Player 1 and 1 for Player 2). After each valid move, it alternates between players using the `xori` instruction.
+3. **Win Condition**: After every move, the program checks for a win by checking rows, columns, and diagonals.
+4. **Draw Condition**: If all spaces are filled and no player wins, the game ends in a draw.
+5. **Board Display**: The board is displayed after every move, showing 'X' and 'O' positions.
+
+### High-Level Summary:
+This MIPS program simulates a simple Tic-Tac-Toe game for two players, alternating turns, validating moves, updating the board, and checking for a win or draw. The game uses basic MIPS system calls to print messages and receive input from the user. The program's flow is structured with a game loop that handles these tasks continuously until there is a winner or a draw.
+
+Let me know if you'd like more details or further explanations on specific parts of the code!
